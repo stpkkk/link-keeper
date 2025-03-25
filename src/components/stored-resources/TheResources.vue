@@ -3,13 +3,15 @@
 		<base-button
 			@click="setSelectedTab('stored-resources')"
 			:mode="storedResButtonMode"
-			>Stored Resources</base-button
 		>
+			Stored Resources
+		</base-button>
 		<base-button
 			@click="setSelectedTab('add-resource')"
 			:mode="addResButtonMode"
-			>Add Resource</base-button
 		>
+			Add Resource
+		</base-button>
 	</base-card>
 	<keep-alive>
 		<component :is="selectedTab"></component>
@@ -45,6 +47,7 @@ export default {
 		return {
 			resources: this.storedResources,
 			addResource: this.addResource,
+			deleteResource: this.deleteResource,
 		}
 	},
 	computed: {
@@ -68,6 +71,13 @@ export default {
 			}
 			this.storedResources.unshift(newResource)
 			this.setSelectedTab('stored-resources')
+		},
+		deleteResource(resId) {
+			// this.storedResources = this.storedResources.filter(
+			// 	res => res.id !== resId
+			// ) not working, different array!!
+			const resIndex = this.storedResources.findIndex(res => res.id === resId)
+			this.storedResources.splice(resIndex, 1)
 		},
 	},
 }
